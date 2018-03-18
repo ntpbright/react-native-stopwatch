@@ -4,7 +4,7 @@ import moment from 'moment'
 
 const DATA = {
   timer: 1234567,
-  labs: [12345, 2345, 34567, 98765],
+  laps: [12345, 2345, 34567, 98765],
 }
 
 function Timer({ interval }){
@@ -35,14 +35,14 @@ function ButtonsRow({ children }){
 
 function Lap({ number, interval}){
   return (
-    <View>
-      <Text>Lap {number}</Text>
-      <Text>{interval}</Text>
+    <View style={styles.lap}>
+      <Text style={styles.lapText}>Lap {number}</Text>
+      <Text style={styles.lapText}>{interval}</Text>
     </View>
   )
 }
 
-function lapsTable({ laps }) {
+function LapsTable({ laps }) {
   return (
     <ScrollView>
       {laps.map((lap, index) => (
@@ -61,6 +61,7 @@ export default class App extends Component {
           <RoundButton title='Reset' color= '#FFFFFF' backgroundColor= '#3D3D3D' />
           <RoundButton title='Start' color= '#50D167' backgroundColor= '#1B361F' />
         </ButtonsRow>
+        <LapsTable laps={DATA.laps}/>
       </View>
     );
   }
@@ -102,5 +103,9 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'space-between',
     marginTop: 80,
+  },
+  lapText: {
+    color: '#FFFFFF',
+
   }
 })
