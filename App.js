@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import moment from 'moment'
 
 const DATA = {
   timer: 1234567,
@@ -7,7 +8,12 @@ const DATA = {
 }
 
 function Timer({ interval }){
-  return <Text style={styles.timer}>{interval}</Text>
+  const duration = moment.duration(interval)
+  return (
+    <Text style={styles.timer}>
+      {duration.minutes()}:{duration.seconds()},{duration.milliseconds()}
+    </Text>
+  )
 }
 export default class App extends Component {
   render() {
