@@ -7,11 +7,11 @@ const DATA = {
   laps: [12345, 2345, 34567, 98765],
 }
 
-function Timer({ interval }){
+function Timer({ interval, style }){
   const duration = moment.duration(interval)
   const centisecond = Math.floor(duration.milliseconds() / 10 )
   return (
-    <Text style={styles.timer}>
+    <Text style={style}>
       {duration.minutes()}:{duration.seconds()},{centisecond}
     </Text>
   )
@@ -33,20 +33,24 @@ function ButtonsRow({ children }){
   )
 }
 
-function Lap({ number, interval}){
+function Lap({ number, interval, fastest, slowest}){
   return (
     <View style={styles.lap}>
       <Text style={styles.lapText}>Lap {number}</Text>
-      <Text style={styles.lapText}>{interval}</Text>
+      <Timer style={styles.lapText} interval={interval}/>
     </View>
   )
 }
 
 function LapsTable({ laps }) {
   return (
-    <ScrollView>
+    <ScrollView style={styles.ScrollView}>
       {laps.map((lap, index) => (
-        <Lap number={index} interval={lap} />
+        <Lap 
+          number={laps.length - index} 
+          key={laps.length - index}
+          interval={lap} 
+        />
       ))}
     </ScrollView>
   )
@@ -56,7 +60,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Timer interval={DATA.timer}/>
+        <Timer interval={DATA.timer} style={styles.timer}/>
         <ButtonsRow>
           <RoundButton title='Reset' color= '#FFFFFF' backgroundColor= '#3D3D3D' />
           <RoundButton title='Start' color= '#50D167' backgroundColor= '#1B361F' />
@@ -103,9 +107,26 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'space-between',
     marginTop: 80,
+    marginBottom: 30,
   },
   lapText: {
     color: '#FFFFFF',
+    fontSize: 18,
+  },
+  lap: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderColor: '#151515',
+    borderTopWidth: 1,
+    paddingVertical: 10,
+  },
+  ScrollView: {
+    alignSelf: 'stretch',
+  },
+  fastest: {
 
+  },
+  slowtest: {
+    
   }
 })
