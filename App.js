@@ -83,6 +83,9 @@ export default class App extends Component {
       laps: [ ],
     }
   }
+  componentWillUnmount() {
+    clearInerval(this.timer)
+  }
 
   start = () => {
     const now = new Date().getTime()
@@ -146,9 +149,10 @@ export default class App extends Component {
         {laps.length == 0 && (
           <ButtonsRow>
             <RoundButton 
-              title='Reset' 
-              color='#FFFFFF' 
-              backgroundColor='#3D3D3D' 
+              title='lap' 
+              color='#8B8B90' 
+              backgroundColor='#151515'
+              disabled 
             />
             <RoundButton 
             title='Start' 
@@ -224,7 +228,7 @@ const styles = StyleSheet.create({
     width: 76,
     height: 76,
     borderRadius: 38,
-    borderWidth: 2,
+    borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
